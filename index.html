@@ -325,6 +325,212 @@
         .info-icon {
             font-size: 18px;
         }
+
+        .confirm-btn {
+            margin-top: 30px;
+            padding: 14px 50px;
+            background: linear-gradient(135deg, #ffa6c1 0%, #ffb3d4 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 166, 193, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 166, 193, 0.6);
+        }
+
+        .confirm-btn:active {
+            transform: translateY(0);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 320px;
+            width: 90%;
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-confirm-btn {
+            padding: 12px 50px;
+            background: linear-gradient(135deg, #ffa6c1 0%, #ffb3d4 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-confirm-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 166, 193, 0.4);
+        }
+
+        .messages-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
+            z-index: 2000;
+        }
+
+        .messages-page.active {
+            display: block;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .popup-bubble {
+            position: fixed;
+            padding: 30px 25px 20px 25px;
+            border-radius: 15px;
+            font-size: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 3000;
+            background: white;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .popup-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .popup-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .popup-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .popup-confirm {
+            padding: 10px 40px;
+            background: linear-gradient(135deg, #ffa6c1 0%, #ffb3d4 100%);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .popup-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 166, 193, 0.5);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -375,7 +581,156 @@
                 <span class="info-icon">💭</span>
                 <span>生活就是这样无聊而有趣</span>
             </div>
+            <button class="confirm-btn" onclick="showModal()">我要努力</button>
         </div>
     </div>
+
+    <!-- 温馨提示弹窗 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-icon">💌</div>
+            <div class="modal-title">温馨提示</div>
+            <div class="modal-text">有一些想对你说的话,确定要查看吗?</div>
+            <button class="modal-confirm-btn" onclick="showMessages()">确定</button>
+        </div>
+    </div>
+
+    <!-- 消息页面 -->
+    <div class="messages-page" id="messagesPage">
+        <button class="close-btn" onclick="closeMessages()">✕</button>
+    </div>
+
+    <script>
+        // 人生哲理消息数组
+        const messages = [
+            { icon: '🌈', title: '温馨提示', text: '你今天快乐吗？记得保持微笑，快乐是会传染的哦！' },
+            { icon: '☀️', title: '阳光心态', text: '每一天都是新的开始，带着阳光般的心情去迎接吧！' },
+            { icon: '🌟', title: '相信自己', text: '你比你想象中更优秀，相信自己可以做到！' },
+            { icon: '💪', title: '加油鸭', text: '困难只是暂时的，坚持下去就能看到希望的曙光！' },
+            { icon: '🌸', title: '善待自己', text: '记得好好休息，累了就停下来，你值得被温柔对待。' },
+            { icon: '🎈', title: '保持热爱', text: '对生活保持热爱，对未来充满期待，一切都会越来越好！' },
+            { icon: '🌻', title: '积极向上', text: '向着阳光生长，总有一天你会成为最好的自己！' },
+            { icon: '⭐', title: '今天很棒', text: '今天的你也很努力呢，为自己点个赞吧！' },
+            { icon: '🎯', title: '继续前进', text: '不要害怕失败，每一步都在让你变得更强大！' },
+            { icon: '💖', title: '感恩生活', text: '感恩每一个当下，珍惜身边的美好时刻。' },
+            { icon: '🦋', title: '破茧成蝶', text: '成长的过程虽然辛苦，但蜕变后的你会更加美丽！' },
+            { icon: '🌙', title: '温柔提醒', text: '善待他人，也要善待自己，你的温柔值得被珍惜。' },
+            { icon: '🍀', title: '幸运星', text: '好运总会降临到努力的人身上，继续加油！' },
+            { icon: '🎨', title: '创造美好', text: '用你的热情为生活涂上最美的色彩！' },
+            { icon: '🌺', title: '绽放自我', text: '不要活在别人的眼光里，做最真实的自己！' },
+            { icon: '🎪', title: '享受当下', text: '生活就像一场冒险，享受每一个精彩的瞬间！' },
+            { icon: '🏆', title: '你真棒', text: '每一个小进步都值得庆祝，为自己鼓掌！' },
+            { icon: '🌊', title: '乘风破浪', text: '勇敢面对挑战，你有能力战胜一切困难！' },
+            { icon: '🎵', title: '快乐音符', text: '让快乐像音乐一样在心中流淌，驱散所有阴霾！' },
+            { icon: '🌤️', title: '雨后天晴', text: '阴天过后必定是晴天，所有的苦难都会过去！' }
+        ];
+
+        let popupInterval;
+        let activePopups = [];
+        const maxPopups = 3; // 最多3个弹窗就停止
+        let popupCount = 0; // 记录当前弹出的弹窗序号
+
+        function showModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function showMessages() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.getElementById('messagesPage').classList.add('active');
+            
+            // 重置计数
+            popupCount = 0;
+            // 开始弹窗
+            startPopups();
+        }
+
+        function closeMessages() {
+            document.getElementById('messagesPage').classList.remove('active');
+            stopPopups();
+        }
+
+        function startPopups() {
+            // 立即弹出3个，从上往下
+            createPopup();
+            setTimeout(() => {
+                if (activePopups.length < maxPopups) createPopup();
+            }, 300);
+            setTimeout(() => {
+                if (activePopups.length < maxPopups) createPopup();
+            }, 600);
+            
+            // 每隔0.5秒检查是否需要弹出，直到达到3个
+            popupInterval = setInterval(() => {
+                if (activePopups.length < maxPopups) {
+                    createPopup();
+                } else {
+                    // 达到3个后停止
+                    clearInterval(popupInterval);
+                }
+            }, 500);
+        }
+
+        function stopPopups() {
+            clearInterval(popupInterval);
+            // 清除所有弹窗
+            activePopups.forEach(popup => {
+                if (popup.parentNode) {
+                    popup.parentNode.removeChild(popup);
+                }
+            });
+            activePopups = [];
+        }
+
+        function createPopup() {
+            // 随机选择一条消息
+            const message = messages[Math.floor(Math.random() * messages.length)];
+            
+            // 创建弹窗元素
+            const popup = document.createElement('div');
+            popup.className = 'popup-bubble';
+            popup.innerHTML = `
+                <div class="popup-icon">${message.icon}</div>
+                <div class="popup-title">${message.title}</div>
+                <div class="popup-text">${message.text}</div>
+                <button class="popup-confirm" onclick="closePopup(this)">确定</button>
+            `;
+            
+            // 随机位置（确保不会超出屏幕）
+            const maxX = window.innerWidth - 380;
+            const maxY = window.innerHeight - 280;
+            const x = Math.max(20, Math.min(maxX, Math.random() * maxX));
+            const y = Math.max(20, Math.min(maxY, Math.random() * maxY));
+            
+            popup.style.left = x + 'px';
+            popup.style.top = y + 'px';
+            
+            document.body.appendChild(popup);
+            activePopups.push(popup);
+        }
+
+        function closePopup(btn) {
+            const popup = btn.closest('.popup-bubble');
+            popup.style.animation = 'popOut 0.3s ease-out';
+            setTimeout(() => {
+                if (popup.parentNode) {
+                    popup.parentNode.removeChild(popup);
+                    activePopups = activePopups.filter(p => p !== popup);
+                    
+                    // 只有当所有3个弹窗都被关闭了，才立即弹出新的3个
+                    if (activePopups.length === 0) {
+                        startPopups();
+                    }
+                    // 否则什么都不做，等待用户关闭剩余的弹窗
+                }
+            }, 300);
+        }
+
+        // 点击弹窗背景关闭
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
